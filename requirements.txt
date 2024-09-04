@@ -1,0 +1,3 @@
+gmail-connector
+flask
+python-dotenv
