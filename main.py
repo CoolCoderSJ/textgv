@@ -12,8 +12,6 @@ filter2 = gc.Condition.subject(subject="New text message")
 filter3 = gc.Condition.text(reader.env.gmail_user)
 filter4 = gc.Category.not_deleted
 
-mail_object = gc.SendEmail()
-auth = mail_object.authenticate
 
 def dict_factory(cursor, row):
     d = {}
@@ -65,7 +63,9 @@ def sendText(number):
         return abort(404)
     addr = row["addr"]
     text = request.json['msg']
+    mail_object = gc.SendEmail()
+    auth = mail_object.authenticate
     mail_object.send_email(recipient=addr, subject="Text Service", body=text)
     return "Text sent to " + number
 
-app.run(debug=True)
+app.run(host='0.0.0.0', port=2340, debug=True)
